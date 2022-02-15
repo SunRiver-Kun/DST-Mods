@@ -1,0 +1,12 @@
+Veison  		change
+???		the maxlevel, upbuff
+1.2		add "nohat", nightlight, fishbuff
+1.3		exchange speech,  fix bug: KEY_H,R can't be used by guest
+1.3.1		add select screen information(text)
+2.0		add widget(R wheel)
+2.1		add skills_sollyz
+2.2		add select screen(tex),add skill(sollyz_miss)  and ...
+2.3		add skill(sollyz_recover)+skillaction, optimize scripts, blance speed and nohat
+2.4		add skill(sollyz_greencane and sollyz_naturalfriend)
+2.5		rebuild green skills, can eat fish directly
+2.6     		rebuild the skillswheel(UI)，修复划船时可能崩溃的bug

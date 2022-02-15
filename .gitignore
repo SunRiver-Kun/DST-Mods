@@ -1,2 +1,4 @@
-# 忽略名称中开头为workshop的文件夹
+﻿# 忽略名称中开头为workshop的文件夹
 workshop*/
+dedicated_server_mods_setup_rail.lua
+modsettings.lua
