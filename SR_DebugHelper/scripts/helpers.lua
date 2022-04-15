@@ -40,6 +40,8 @@ AddCommand("TheSim")
 AddCommand("TheInput")
 AddCommand("TheNet")
 
+AddCommand("TheInventory")
+AddCommand("TheCraftingMenuProfile")
 AddCommand("TheMixer")
 AddCommand("TheCamera")
 AddCommand("TheFrontEnd")
