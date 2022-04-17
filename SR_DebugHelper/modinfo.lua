@@ -1,7 +1,25 @@
 name = "SR_DebugHelper"
-description = "SunRiver Make this for debug mod."
+description = [[
+This a mod for modmaker. It is very helpful for write you mod. 
+
+* Intellisense of code(s_xxx,sr_xxx) and some usual word(ThePlayer, TheSim, ...)
+* Visual data: you can use s_show(data:any) to show data in UI and s_data() to return current data of s_show table
+* Easy to get Entity: use s_get() to return the entity under mouse.   s_inst() to return the last data of s_get() or s_get() 
+* Easy to get UI: use s_getui() to return the ui under mouse.  s_ui() return the last ui of s_getui() or s_getui()
+* Easy to print
+	s_print(tb:any) : to print a table or othr with a prefix "s_print"
+	s_say(str:string) : let Theplayer say something
+	s_component(component)
+	s_entity(entity) -- not s_entity(ThePlayer.entity), but s_entity(ThePlayer)
+	s_upvalues(fn)
+	s_fn(fn)
+* For help: use s_help()
+* Only run in client. This means if not cave, it can get the data of servicer directly, 
+	but get local data only when open cave or join other's world.
+* For Cave, add the other mod "SR_DebugHelperExtension".  
+]]
 author = "SunRiver"
-version = "1.1"
+version = "1.2"
 api_version_dst = 10
 priority = 0
 dst_compatible = true
