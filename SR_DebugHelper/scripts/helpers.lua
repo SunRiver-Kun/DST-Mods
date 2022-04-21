@@ -133,7 +133,7 @@ end,nil,"返回上一个获取的UI或鼠标下的UI","Return the last ui return
 AddCommand("s_fn",function (fn)
     local tb = debug.getinfo(fn,"S")
     if tb==nil then print("s_fn fails to get the info of fn") return end
-    print(fn,tb.what,tb.source)
+    print(fn,tb.what,tb.short_src)
 end,"fn:function ","打印一个函数的来源","Print the source of fn")
 
 AddCommand("s_print",function(...)  
