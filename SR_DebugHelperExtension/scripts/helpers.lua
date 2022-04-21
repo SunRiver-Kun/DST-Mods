@@ -160,14 +160,5 @@ end)
 
 --Debug
 AddServerCommand("sr_test", function()
-    ThePlayer.str1 = net_string(ThePlayer.GUID,"str1","str1")
-    ThePlayer.str2 = net_string(ThePlayer.GUID,"str2","str2")
-    if TheNet:GetIsClient() then
-        ThePlayer:ListenForEvent("str1",function (...)
-            printf(...)
-        end)
-        ThePlayer:ListenForEvent("str2",function (...)
-            printf(...)
-        end)
-    end
+ 
 end)

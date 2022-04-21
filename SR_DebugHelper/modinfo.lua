@@ -14,7 +14,7 @@ This a mod for modmaker. It is very helpful for write you mod.
 	s_upvalues(fn)
 	s_fn(fn)
 * For help: use s_help()
-* Only run in client. This means if not cave, it can get the data of servicer directly, 
+* Only run in client. This means if not cave, it can get the data of server directly, 
 	but get local data only when open cave or join other's world.
 * For Cave, add the other mod "SR_DebugHelperExtension".  
 ]]
