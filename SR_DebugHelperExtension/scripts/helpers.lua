@@ -56,18 +56,10 @@ AddServerCommand("sr_findinst", function (x,y,z)
     end
     return lastinst
 end)
-AddClientModRPCHandler(modname, "sr_findinst", function() 
-    local inst = s_get()
-    if inst then
-        local x,y,z = inst.Transform:GetWorldPosition()
-        c_remote("sr_findinst("..x..","..y..","..z..")")
-    else
-        c_remote("sr_findinst()")
-    end
-end)
 AddServerCommand("sr_get", function ()
     if TheNet:GetIsClient() then s_get() return end
-    SendClientRPC("sr_findinst")
+    --处理步骤在modmain里，会自动先调用sr_findinst交换数据，一会再回调
+    return lastinst
 end)
 
 AddServerCommand("sr_inst", function()
