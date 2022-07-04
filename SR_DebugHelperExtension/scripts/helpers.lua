@@ -82,7 +82,7 @@ AddServerCommand("sr_help", function ()
         SendClientRPC("sr_help")
     end
     local help = "sr_xxx is similar to s_xxx.\n"..
-        "Different:\n\tsr_get() will no return value;\n\tsr_inst() only return lastvalue.\n"..
+        "Different:\n\n\tsr_inst() only return lastvalue.\n"..
         "Add:\n"..
         "\tsr_findinst(x,y,z): get the inst in world position.\n"..
         "\tprintf(...): print something to client, you can also use sr_print(...)."

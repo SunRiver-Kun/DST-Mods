@@ -14,7 +14,8 @@ isChinese = GetModConfigData("language")
 
 modimport("scripts/helpers")  
 
-AddClassPostConstruct("screens/consolescreen",function (self)   --追加提示
+AddClassPostConstruct("screens/consolescreen",function (self)   
+    --追加提示
     for k,v in pairs(SR_DEBUGCOMMAND) do 
         local delim = k:sub(1,2)
         local word = k:sub(3)
@@ -35,6 +36,25 @@ AddClassPostConstruct("screens/consolescreen",function (self)   --追加提示
                 self.console_edit:AddWordPredictionDictionary({delim=delim,words={word}})
         end
     end
+-------------- sr_get
+    local Run = self.Run
+    self.Run = function (self)
+        local fnstr = self.console_edit:GetString()
+        if string.find(fnstr,"sr_get") then    --self.toggle_remote_execute and
+            local inst = s_get()
+            if inst then
+                local x,y,z = inst.Transform:GetWorldPosition()
+                c_remote("sr_findinst("..x..","..y..","..z..")")
+            else
+                c_remote("sr_findinst()")
+            end
+        end
+        Run(self)
+    end
+end)
+
+AddClassPostConstruct("screens/consolescreen",function (self)
+    
 end)
 
 if isUseDebugMenu then
