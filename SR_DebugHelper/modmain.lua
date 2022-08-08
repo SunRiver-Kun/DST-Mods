@@ -53,10 +53,6 @@ AddClassPostConstruct("screens/consolescreen",function (self)
     end
 end)
 
-AddClassPostConstruct("screens/consolescreen",function (self)
-    
-end)
-
 if isUseDebugMenu then
     local colors = {
         tablecolor = PLAYERCOLOURS[GetModConfigData("tablecolor")] or {1,1,1,1} ,
@@ -73,4 +69,12 @@ if isUseDebugMenu then
         SR_DEBUGMENU = root:AddChild(require("widgets/sr_debugmenu")(colors))
         SR_DEBUGMENU:Hide()
     end)
+end
+
+if GetModConfigData("autododmode") then
+    AddPlayerPostInit(function (player)
+        c_select(player)
+        c_godmode()
+        c_freecrafting()
+    end)	
 end

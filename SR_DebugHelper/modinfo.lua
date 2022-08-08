@@ -69,6 +69,17 @@ configuration_options =
 			},
 		default = true,
 	},
+	{
+		name = "autododmode",
+		label = "godmode",
+		hover = "上帝模式和物品全制作",
+		options =		
+			{
+				{description = "Yes", data = true, hover = ""},
+				{description = "No", data = false, hover = ""},		
+			},
+		default = false,
+	},
 	MakeColorOption("tablecolor","Table Color",Colors,1),
 	MakeColorOption("functioncolor","Function Color",Colors,2),
 	MakeColorOption("userdatacolor","Userdata Color",Colors,3),

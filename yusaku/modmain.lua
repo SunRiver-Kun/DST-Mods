@@ -1,8 +1,9 @@
 PrefabFiles = {
     "yusaku", -- 人物代码文件
     "yusaku_none", -- 人物皮肤
-    -- food
-    "peach_smoothie"
+   -- "yu_dueldisk",
+    "yu_foods",
+   -- "yu_tablet",
 }
 ---对比老版本 主要是增加了names图片 人物检查图标 还有人物的手臂修复（增加了上臂）
 -- 人物动画里面有个SWAP_ICON 里面的图片是在检查时候人物头像那里显示用的
@@ -72,6 +73,10 @@ TUNING.YUSAKU_HEALTH = 150
 TUNING.YUSAKU_HUNGER = 150
 TUNING.YUSAKU_SANITY = 200
 
+--保温
+TUNING.YUSAKU_INHERENTINSULATION = 100  --冬天保温
+TUNING.YUSAKU_IINHERENTSUMMERINSULATION = 100   --夏天保温
+
 -- 生存几率
 STRINGS.CHARACTER_SURVIVABILITY.yusaku = "生存？爷是来斩妖除魔的！"
 
@@ -90,6 +95,9 @@ TUNING.STARTING_ITEM_IMAGE_OVERRIDE["abc"] = {
 ]]
 
 -- food
-modimport("scripts/foodrecipes")
-STRINGS.NAMES.PEACH_SMOOTHIE = "桃子奶昔"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PEACH_SMOOTHIE = "甜蜜的桃子味道。"
+local foods = require("yu_foodrecipes")
+for k, v in pairs(foods) do
+    AddCookerRecipe("cookpot", v)
+end
+STRINGS.NAMES.YU_HOTDOG = "热狗"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.YU_HOTDOG = "热乎乎的~"
