@@ -1,6 +1,8 @@
 ﻿# 忽略名称中开头为workshop的文件夹
 examples/
 workshop*/
+**/exported/
+*.png
 dedicated_server_mods_setup_rail.lua
 dedicated_server_mods_setup.lua
 modsettings.lua
