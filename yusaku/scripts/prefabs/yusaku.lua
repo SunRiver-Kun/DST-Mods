@@ -8,6 +8,8 @@ local prefabs = {}
 -- 初始物品
 local start_inv = {
     -- "spear", --自带一个长矛
+	"yu_tablet",
+	"yu_tablet",
 }
 
 local hassanbuff = false
@@ -29,6 +31,7 @@ end
 -- 一般用于添加小地图标签等动画文件或者需要主客机都执行的组件（少数）
 local common_postinit = function(inst)
     -- Minimap icon
+	inst:AddTag("yusaku")
     inst.MiniMapEntity:SetIcon("yusaku.tex")
 end
 

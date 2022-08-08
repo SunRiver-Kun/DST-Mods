@@ -3,7 +3,7 @@ PrefabFiles = {
     "yusaku_none", -- 人物皮肤
    -- "yu_dueldisk",
     "yu_foods",
-   -- "yu_tablet",
+    "yu_tablet",
 }
 ---对比老版本 主要是增加了names图片 人物检查图标 还有人物的手臂修复（增加了上臂）
 -- 人物动画里面有个SWAP_ICON 里面的图片是在检查时候人物头像那里显示用的
@@ -81,18 +81,17 @@ TUNING.YUSAKU_IINHERENTSUMMERINSULATION = 100   --夏天保温
 STRINGS.CHARACTER_SURVIVABILITY.yusaku = "生存？爷是来斩妖除魔的！"
 
 -- 选人界面初始物品显示
-TUNING.GAMEMODE_STARTING_ITEMS.DEFAULT.YUSAKU = {
-    
+TUNING.GAMEMODE_STARTING_ITEMS.DEFAULT.YUSAKU = { "yu_tablet", }
+--如果你的初始物品是mod物品需要定义mod物品的图片路径 
+
+TUNING.STARTING_ITEM_IMAGE_OVERRIDE["yu_tablet"] = {
+	atlas = "images/inventoryimages/yu_tablet.xml",
+	image = "yu_tablet.tex",
 }
 
---[[如果你的初始物品是mod物品需要定义mod物品的图片路径 比如物品是 abc
-
-TUNING.STARTING_ITEM_IMAGE_OVERRIDE["abc"] = {
-	atlas = "images/inventoryimages/abc.xml",
-	image = "abc.tex",
-}
-
-]]
+--action
+modimport("scripts/yu_actions")
+modimport("scripts/yu_componentactions")
 
 -- food
 local foods = require("yu_foodrecipes")
@@ -101,3 +100,9 @@ for k, v in pairs(foods) do
 end
 STRINGS.NAMES.YU_HOTDOG = "热狗"
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.YU_HOTDOG = "热乎乎的~"
+
+--item
+modimport("scripts/yu_recipes")
+STRINGS.NAMES.YU_TABLET = "药片"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.YU_TABLET = "提神醒脑。"
+
