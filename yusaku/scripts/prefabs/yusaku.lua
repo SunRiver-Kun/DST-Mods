@@ -46,8 +46,8 @@ local master_postinit = function(inst)
     inst.components.sanity:SetMax(TUNING.YUSAKU_SANITY)
 
 	--温度
-	inst.components.temperature.inherentinsulation = 100	--冬天保温
-	inst.components.temperature.inherentsummerinsulation = 100	--夏天保温
+	inst.components.temperature.inherentinsulation = TUNING.YUSAKU_INHERENTINSULATION	--冬天保温
+	inst.components.temperature.inherentsummerinsulation = TUNING.YUSAKU_IINHERENTSUMMERINSULATION	--夏天保温
 
 	--san低于一定程度时，且非地面早上，加个相当于高礼帽的回san 
 	inst:ListenForEvent("sanitydelta", onsanitydelta)
