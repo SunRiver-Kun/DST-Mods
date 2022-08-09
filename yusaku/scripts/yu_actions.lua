@@ -1,7 +1,8 @@
-local function MakeAction(data, str, fn)
+local function MakeAction(data, str, fn, strfn)
     local action = Action(data)
     action.str = str or "TestAction"
-    action.fn = fn or action.fn
+    action.strfn = strfn    --client fn
+    action.fn = fn or action.fn --server fn
     return action
 end
 
@@ -19,7 +20,22 @@ local ACTIONS =
         end), 
         anim = "dolongaction",   --string or function(inst, action)  server
         clientanim = "dolongaction" --string or function(inst, action) client
-    }
+    },
+    
+    YU_SHIFTER = { 
+        action = MakeAction(nil, nil, function(act)
+            local target = act.target or act.doer
+            if target ~= nil and target.components.yu_shiftable then
+                target.components.yu_shiftable:Shift(act.invobject)
+                return true
+            end
+        end,function (act)
+            return act.invobject ~= nil and act.invobject.replica.yu_shifter and act.invobject.replica.yu_shifter:GetStr()
+                or nil
+        end), 
+        anim = "dolongaction",   --string or function(inst, action)  server
+        clientanim = "dolongaction" --string or function(inst, action) client
+    },
 }
 
 

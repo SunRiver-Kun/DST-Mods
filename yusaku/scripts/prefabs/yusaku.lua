@@ -10,6 +10,7 @@ local start_inv = {
     -- "spear", --自带一个长矛
 	"yu_tablet",
 	"yu_tablet",
+	"yu_dueldisk"
 }
 
 local hassanbuff = false
@@ -51,6 +52,9 @@ local master_postinit = function(inst)
 	--温度
 	inst.components.temperature.inherentinsulation = TUNING.YUSAKU_INHERENTINSULATION	--冬天保温
 	inst.components.temperature.inherentsummerinsulation = TUNING.YUSAKU_IINHERENTSUMMERINSULATION	--夏天保温
+
+	--变身
+	inst:AddComponent("yu_shiftable")
 
 	--san低于一定程度时，且非地面早上，加个相当于高礼帽的回san 
 	inst:ListenForEvent("sanitydelta", onsanitydelta)

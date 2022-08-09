@@ -22,7 +22,11 @@ local COMPONENT_ACTIONS = {
             if doer.replica.sanity ~= nil then
                 table.insert(actions, ACTIONS.YU_SANITYHEAL)
             end
-        end
+        end,
+        
+        yu_shifter = function(inst, doer, actions)
+            table.insert(actions, ACTIONS.YU_SHIFTER)
+        end,
     }
 }
 

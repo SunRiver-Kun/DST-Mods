@@ -5,6 +5,13 @@ local characterrecipes = {
             forgetmelots = 1,
         },
         tech = TECH.NONE
+    },
+    
+    yu_dueldisk = {
+        ingredients = {
+            transistor = 2,
+            gears = 1,
+        }
     }
 }
 

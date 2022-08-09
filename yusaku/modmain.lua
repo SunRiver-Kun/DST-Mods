@@ -1,7 +1,7 @@
 PrefabFiles = {
     "yusaku", -- 人物代码文件
     "yusaku_none", -- 人物皮肤
-   -- "yu_dueldisk",
+    "yu_dueldisk",
     "yu_foods",
     "yu_tablet",
 }
@@ -89,6 +89,14 @@ TUNING.STARTING_ITEM_IMAGE_OVERRIDE["yu_tablet"] = {
 	image = "yu_tablet.tex",
 }
 
+--replica 
+local replicalist = {
+    "yu_shifter"
+}
+for k, v in pairs(replicalist) do
+    AddReplicableComponent(v)
+end
+
 --action
 modimport("scripts/yu_actions")
 modimport("scripts/yu_componentactions")
@@ -105,4 +113,6 @@ STRINGS.CHARACTERS.GENERIC.DESCRIBE.YU_HOTDOG = "热乎乎的~"
 modimport("scripts/yu_recipes")
 STRINGS.NAMES.YU_TABLET = "药片"
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.YU_TABLET = "提神醒脑。"
+STRINGS.NAMES.YU_DUELDISK = "决斗盘"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.YU_DUELDISK = "最强的决斗者一切都是必然。"
 
