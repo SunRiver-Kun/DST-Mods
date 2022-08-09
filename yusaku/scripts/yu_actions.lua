@@ -1,7 +1,7 @@
 local function MakeAction(data, str, fn, strfn)
     local action = Action(data)
     action.str = str or "TestAction"
-    action.strfn = strfn    --client fn
+    action.strfn = strfn    --client fn，找STRINGS.ACTIONS
     action.fn = fn or action.fn --server fn
     return action
 end
@@ -19,22 +19,28 @@ local ACTIONS =
             end
         end), 
         anim = "dolongaction",   --string or function(inst, action)  server
-        clientanim = "dolongaction" --string or function(inst, action) client
     },
     
-    YU_SHIFTER = { 
-        action = MakeAction(nil, nil, function(act)
+    YU_DUEL = { 
+        action = MakeAction(nil, "登入", function(act)
             local target = act.target or act.doer
-            if target ~= nil and target.components.yu_shiftable then
-                target.components.yu_shiftable:Shift(act.invobject)
+            if target ~= nil then
+                target:PushEvent("duel")
                 return true
             end
-        end,function (act)
-            return act.invobject ~= nil and act.invobject.replica.yu_shifter and act.invobject.replica.yu_shifter:GetStr()
-                or nil
         end), 
         anim = "dolongaction",   --string or function(inst, action)  server
-        clientanim = "dolongaction" --string or function(inst, action) client
+    },
+
+    YU_UNDUEL = { 
+        action = MakeAction(nil, '登出', function(act)
+            local target = act.target or act.doer
+            if target ~= nil then
+                target:PushEvent("unduel")
+                return true
+            end
+        end), 
+        anim = "dolongaction",   --string or function(inst, action)  server
     },
 }
 

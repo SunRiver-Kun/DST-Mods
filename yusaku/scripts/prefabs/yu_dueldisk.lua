@@ -3,12 +3,19 @@ local assets = {
     Asset("ATLAS", "images/inventoryimages/yu_dueldisk.xml")
 }
 
-local function startduel(target)
-    
+local lastowner = nil
+local function onputininventory(inst, owner)
+    if lastowner and lastowner:HasTag("yusaku") then
+        lastowner:PushEvent("unduel")
+    end
+    lastowner = owner
 end
 
-local function endduel(target)
-    
+local function ondropped(inst)
+    if lastowner and lastowner:HasTag("yusaku") then
+        lastowner:PushEvent("unduel")
+    end
+    lastowner = nil
 end
 
 local function fn()
@@ -26,17 +33,11 @@ local function fn()
 
     MakeInventoryFloatable(inst, "small", 0.05, 0.95)
 
-    --添加replica标签，让客户端自动添加对应组件
-    inst:AddTag("_yu_shifter")
-
     inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
         return inst
     end
-
-    --移除replica标签，让添加对应组件时自动添加对应标签
-    inst:RemoveTag("_yu_shifter")
 
     inst:AddComponent("inspectable")
 
@@ -45,8 +46,11 @@ local function fn()
 
     inst:AddComponent("yu_shifter")
 
-
     MakeHauntableLaunch(inst)
+
+    
+    inst:ListenForEvent("onputininventory", onputininventory)
+    inst:ListenForEvent("ondropped", ondropped)
 
     return inst
 end
