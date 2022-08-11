@@ -1,20 +1,19 @@
 name = "SR_DebugHelperExtension"
 description = [[
-This a mod for modmaker. It is very helpful for write you mod.
-* This mod is the extension of SR_DebugHelper. It run in server and can get the server data correctly
-* most of commands are same as s_xxx() but prefix is sr, such as sr_help()
-* the sr_commands usually run in remote, but lisk s_commands in local
+This a mod for modmaker. It is very helpful for debug.
+* The extension of SR_DebugHelper，run in server	SR_DebugHelper的扩展
+* sr_xxx is similar to s_xxx()	sr_xxx和s_xxx相似
+* sr_xxx remote server data, local client data  远程服务器数据，本地服务器数据
 * Different:
-	sr_get() will no return value
-	sr_inst() only return last value.
-* Add:	
-	sr_findinst(x,y,z): get the inst in world position.
-	printf(...): print something to client, you can also use sr_print(...).
-* Wait:
-	sr_show(), sr_data()	--It's difficult to change the server's value in client. I will try... 
+	sr_inst() only return last value.	只返回上一次的数据
+* Add:		
+	sr_findinst(x,y,z): get the inst in world position.	返回坐标下的实体
+	printf(...): print something to client  打印服务器信息到客户端
+* Wait:  太难摆烂
+	sr_show(), sr_data()	
 ]]
 author = "SunRiver"
-version = "1.1"
+version = "1.2"
 api_version_dst = 10
 priority = 0
 dst_compatible = true
