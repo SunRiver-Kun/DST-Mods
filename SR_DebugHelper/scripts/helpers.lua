@@ -14,8 +14,6 @@ require("util")
 local lastinst = nil
 local lastui = nil
 
-local function emptyfn() end
-
 function AddCommand(fnname,fn,params,ch_des,en_des)
     modassert(fnname and string.len(fnname)>2, "The fnname need to be len>2")
     if fn then 
@@ -26,11 +24,14 @@ function AddCommand(fnname,fn,params,ch_des,en_des)
             GLOBAL.rawset(GLOBAL, fnname, fn)
         end
     end
-    params = params or ""
-    ch_des = ch_des or ""
-    en_des = en_des or ""
-    SR_DEBUGCOMMAND[fnname] = params..(isChinese and ch_des or en_des)
-    
+    if ch_des or en_des then  
+        params = params or ""
+        ch_des = ch_des or ""
+        en_des = en_des or ""
+        SR_DEBUGCOMMAND[fnname] = fnname.."("..params..")\t"..(isChinese and ch_des or en_des)
+    else
+        SR_DEBUGCOMMAND[fnname] = ""
+    end
 end
 
 
@@ -80,9 +81,9 @@ AddCommand("sr_upvalues")
 AddCommand("sr_fn")
 
 --添加官方代码
-AddCommand("s_component", DumpComponent,"component:table, such as ThePlayer.components.talker","打印组件","Print component")
-AddCommand("s_entity", DumpEntity,"entity:table, such as ThePlayer","打印实体","Print entity")    --几乎把所有entity的东西都打印出来了
-AddCommand("s_upvalues", DumpUpvalues,"func:function ","打印函数的upvalues","Print the upvalues of fn")
+AddCommand("s_component", DumpComponent,"component:table","打印组件","Print component")
+AddCommand("s_entity", DumpEntity,"entity:table","打印实体","Print entity")    --几乎把所有entity的东西都打印出来了
+AddCommand("s_upvalues", DumpUpvalues,"func:function","打印函数的upvalues","Print the upvalues of fn")
 
 --添加自定义函数
 
@@ -90,7 +91,7 @@ AddCommand("s_help", function ()
     print("--------------Help--------------")
     for i, k, v in sorted_pairs(SR_DEBUGCOMMAND) do
         if v~="" then 
-            print(k,v)
+            print(v)
         end
     end
     print("-------------EndHelp------------")
@@ -103,7 +104,7 @@ AddCommand("s_say", function(str)
     else
         print(str) 
     end 
-end,"str:string ","让角色说话","Let player says something")
+end,"str:string","让角色说话","Let player says something")
 
 AddCommand("s_get",function()
     lastinst = ConsoleWorldEntityUnderMouse()
@@ -134,7 +135,7 @@ AddCommand("s_fn",function (fn)
     local tb = debug.getinfo(fn,"S")
     if tb==nil then print("s_fn fails to get the info of fn") return end
     print(fn,tb.what,tb.short_src)
-end,"fn:function ","打印一个函数的来源","Print the source of fn")
+end,"fn:function","打印一个函数的来源","Print the source of fn")
 
 AddCommand("s_print",function(...)  
     local tb = {...}
@@ -147,7 +148,7 @@ AddCommand("s_print",function(...)
             end
         end
     end
-end,"... ","打印信息","Simple to print something")
+end,"...","打印信息","Simple to print something")
 
 AddCommand("s_show", function(tb) 
     if not SR_DEBUGMENU then print("Please make sure you enable debugmenu in config.") return end
@@ -169,12 +170,12 @@ AddCommand("s_show", function(tb)
         SR_DEBUGMENU.bt_expand.onclick()
     end
 
-end,"tb:any ","***显示调试菜单，并可视化该表***","***Show debugmenu by param***")
+end,"tb:any","***显示调试菜单，并可视化该表***","***Show debugmenu by param***")
 
 AddCommand("s_data", function ()
     if not SR_DEBUGMENU then print("Please make sure you enable debugmenu in config.") return end
     return SR_DEBUGMENU:GetCurrentData()
-end,nil,"返回当前调试菜单的对象 : table","Return current debug menu table")
+end,nil,"返回当前调试菜单的对象表","Return current debug menu table")
 
 --s_test 调试用，随便改  c_remote(fnstr) 直接偷渡
 AddCommand("s_test",function(str)

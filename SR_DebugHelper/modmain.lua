@@ -16,25 +16,17 @@ modimport("scripts/helpers")
 
 AddClassPostConstruct("screens/consolescreen",function (self)   
     --追加提示
+    local dictionarys = {}
     for k,v in pairs(SR_DEBUGCOMMAND) do 
         local delim = k:sub(1,2)
         local word = k:sub(3)
- 
-        local issame = false  --判断前缀是否存在
-        local olddic = self.console_edit.prediction_widget.word_predictor.dictionaries
-        for i,d in pairs(olddic) do 
-            if d.delim == delim then
-                issame = true
-                if not table.contains(d.words, word) then 
-                    table.insert(d.words,word)
-                end
-                break
-            end
+        if not dictionarys[delim] then
+            dictionarys[delim] = {}
         end
-            
-        if not issame then
-                self.console_edit:AddWordPredictionDictionary({delim=delim,words={word}})
-        end
+        table.insert(dictionarys[delim], word)
+    end
+    for delim, words in pairs(dictionarys) do
+        self.console_edit:AddWordPredictionDictionary({words = words, delim = delim, num_chars = 0})
     end
 -------------- sr_get
     local Run = self.Run

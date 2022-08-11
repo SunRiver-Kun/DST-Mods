@@ -21,7 +21,8 @@ AddServerCommand("printf", function(...)
         str = str .. tostring(v) .. "\t"
     end
     if str=="" then str = "nil" end
-    SendModRPCToClient(CLIENT_MOD_RPC[modname]["printf"], ThePlayer.userid, str)
+    --SendModRPCToClient(CLIENT_MOD_RPC[modname]["printf"], ThePlayer.userid, str)
+    SendClientRPC("printf", str)
 end)
 
 AddServerCommand("sr_print", function(...)
@@ -81,12 +82,11 @@ AddServerCommand("sr_help", function ()
     else 
         SendClientRPC("sr_help")
     end
-    local help = "sr_xxx is similar to s_xxx.\n"..
-        "Different:\n\n\tsr_inst() only return lastvalue.\n"..
-        "Add:\n"..
-        "\tsr_findinst(x,y,z): get the inst in world position.\n"..
-        "\tprintf(...): print something to client, you can also use sr_print(...)."
-
+    local help = [[sr_xxx is similar to s_xxx
+Different:  sr_inst() only return lastvalue.
+Add: 
+    sr_findinst(x,y,z)  get the inst in world position
+    printf(...)   print server info to client, you can use sr_print(...) too]]
     printf(help)
 end)
 
