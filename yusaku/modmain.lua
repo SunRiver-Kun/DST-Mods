@@ -32,16 +32,20 @@ Assets = {
     Asset("IMAGE", "images/names_yusaku.tex"), -- 人物名字
     Asset("ATLAS", "images/names_yusaku.xml"),
     Asset("IMAGE", "bigportraits/yusaku_none.tex"), -- 人物大图（椭圆的那个）
-    Asset("ATLAS", "bigportraits/yusaku_none.xml") --[[---注意事项
+    Asset("ATLAS", "bigportraits/yusaku_none.xml"), 
+--[[---注意事项
 1、目前官方自从熔炉之后人物的界面显示用的都是那个椭圆的图
 2、官方人物目前的图片跟名字是分开的 
 3、names_yusaku 和 yusaku_none 这两个文件需要特别注意！！！
 这两文件每一次重新转换之后！需要到对应的xml里面改对应的名字 否则游戏里面无法显示
 具体为：
-降names_esctemplatxml 里面的 Element name="yusaku.tex" （也就是去掉names——）
+将names_yusaku.xml 里面的 Element name="yusaku.tex" （也就是去掉names——）
 将yusaku_none.xml 里面的 Element name="yusaku_none_oval" 也就是后面要加  _oval
 （注意看修改的名字！不是两个都需要修改）
-	]]
+--]]
+
+    --UI
+    Asset("ANIM", "anim/yu_status_sanity.zip"),
 }
 
 GLOBAL.setmetatable(env,{__index=function(t,k) return GLOBAL.rawget(GLOBAL,k) end})		--一键GLOBAL
@@ -98,6 +102,9 @@ end
 --action
 modimport("scripts/yu_actions")
 modimport("scripts/yu_componentactions")
+
+--ui
+modimport("scripts/widgets/_sanitybadge")
 
 -- food
 local foods = require("yu_foodrecipes")
