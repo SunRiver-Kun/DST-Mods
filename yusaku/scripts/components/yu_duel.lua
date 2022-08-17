@@ -1,4 +1,4 @@
-
+-- Sanity:AddSanityAuraImmunity(tag)    sanityaura
 local function onisduel(self, isduel)
     self.inst.replica.yu_duel:SetDuel(isduel)
     
@@ -6,9 +6,8 @@ end
 
 local function redirect(inst, amount, overtime, cause, ignore_invincible, afflicter, ignore_absorb)
     if inst.components.sanity then
-        inst.components.sanity:DoDelta(amount)
+        return inst.components.sanity:DoDelta(amount) or true
     end
-    return true
 end
 
 
@@ -33,6 +32,9 @@ function YU_Duel:Duel()
     if self.inst.components.health then
         self.inst.components.health.redirect = self.redirect
     end
+    if self.inst.components.sanity then
+        self.inst.components.sanity:AddSanityAuraImmunity("monster")
+    end
     self.inst:PushEvent("duel")
 end
 
@@ -41,6 +43,9 @@ function YU_Duel:UnDuel()
     self.isduel = false
     if self.inst.components.health then
         self.inst.components.health.redirect = nil
+    end
+    if self.inst.components.sanity then
+        self.inst.components.sanity:RemoveSanityAuraImmunity("monster")
     end
     self.inst:PushEvent("unduel")
 end

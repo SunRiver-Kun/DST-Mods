@@ -13,19 +13,8 @@ local start_inv = {
 	"yu_dueldisk"
 }
 
-local hassanbuff = false
 local function onsanitydelta(inst, data)
-	if hassanbuff then
-		if TheWorld.state.isday and not TheWorld:HasTag("cave") then
-			hassanbuff = false
-			inst.components.sanity.dapperness = 0
-		end
-	else
-		if not TheWorld.state.isday and data.newpercent < 0.175 then
-			hassanbuff = true
-			inst.components.sanity.dapperness = TUNING.DAPPERNESS_MED
-		end
-	end
+	inst.components.sanity.dapperness = data.newpercent < 0.175 and not TheWorld.state.isday and TUNING.DAPPERNESS_MED or 0
 end
 
 local function duel(inst)
@@ -39,13 +28,18 @@ end
 -- 这个函数将在服务器和客户端都会执行
 -- 一般用于添加小地图标签等动画文件或者需要主客机都执行的组件（少数）
 local common_postinit = function(inst)
-    -- Minimap icon
+	inst.MiniMapEntity:SetIcon("yusaku.tex")
 	inst:AddTag("yusaku")
-    inst.MiniMapEntity:SetIcon("yusaku.tex")
+	--replica 标签
+	inst:AddTag("_yu_duel")
+
 end
 
 -- 这里的的函数只在主机执行  一般组件之类的都写在这里
 local master_postinit = function(inst)
+	--移除replica标签方便再次加上
+	inst:RemoveTag("_yu_duel")
+
     -- 人物音效
     inst.soundsname = "willow"
 
