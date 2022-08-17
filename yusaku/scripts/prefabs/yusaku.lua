@@ -30,12 +30,10 @@ end
 
 local function duel(inst)
 	print("duel+++++++++")
-	inst.duelstate:set("duel")
 end
 
 local function unduel(inst)
 	print("unduel+++++++++")
-	inst.duelstate:set("unduel")
 end
 
 -- 这个函数将在服务器和客户端都会执行
@@ -44,13 +42,10 @@ local common_postinit = function(inst)
     -- Minimap icon
 	inst:AddTag("yusaku")
     inst.MiniMapEntity:SetIcon("yusaku.tex")
-	
-	inst.duelstate = net_string(inst.GUID, "inst.duelstate", "yu_duelstatechanged")
 end
 
 -- 这里的的函数只在主机执行  一般组件之类的都写在这里
 local master_postinit = function(inst)
-	inst.duelstate:set("unduel")
     -- 人物音效
     inst.soundsname = "willow"
 
@@ -70,6 +65,7 @@ local master_postinit = function(inst)
 	inst:ListenForEvent("sanitydelta", onsanitydelta)
 
 	--变身
+	inst:AddComponent("yu_duel")
 	inst:ListenForEvent("duel", duel)
 	inst:ListenForEvent("unduel", unduel)
 

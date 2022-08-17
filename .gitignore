@@ -1,5 +1,6 @@
 ﻿# 忽略名称中开头为workshop的文件夹
-examples/
+_*/
+~*/
 workshop*/
 **/exported/
 *.png

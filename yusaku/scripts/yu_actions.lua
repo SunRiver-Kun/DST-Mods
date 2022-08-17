@@ -24,8 +24,8 @@ local ACTIONS =
     YU_DUEL = { 
         action = MakeAction(nil, "登入", function(act)
             local target = act.target or act.doer
-            if target ~= nil then
-                target:PushEvent("duel")
+            if target ~= nil and target.components.yu_duel then
+                target.components.yu_duel:Duel()
                 return true
             end
         end), 
@@ -35,8 +35,8 @@ local ACTIONS =
     YU_UNDUEL = { 
         action = MakeAction(nil, '登出', function(act)
             local target = act.target or act.doer
-            if target ~= nil then
-                target:PushEvent("unduel")
+            if target ~= nil and target.components.yu_duel then
+                target.components.yu_duel:UnDuel()
                 return true
             end
         end), 

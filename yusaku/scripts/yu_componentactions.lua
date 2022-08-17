@@ -25,11 +25,10 @@ local COMPONENT_ACTIONS = {
         end,
         
         yu_shifter = function(inst, doer, actions)
-            if doer:HasTag("yusaku") and doer.duelstate and inst.replica.inventoryitem:IsHeldBy(doer) then
-                local value = doer.duelstate:value()
-                if value=="duel" then
+            if doer:HasTag("yusaku") and inst.replica.inventoryitem:IsHeldBy(doer) and doer.replica.yu_duel then
+                if doer.replica.yu_duel:IsDuel() then
                     table.insert(actions, ACTIONS.YU_UNDUEL)
-                elseif value=="unduel" then
+                else 
                     table.insert(actions, ACTIONS.YU_DUEL)
                 end
             end

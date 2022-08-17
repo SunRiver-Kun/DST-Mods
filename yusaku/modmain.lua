@@ -90,7 +90,7 @@ TUNING.STARTING_ITEM_IMAGE_OVERRIDE["yu_tablet"] = {
 }
 
 --replica 
-local replicalist = { }
+local replicalist = { "yu_duel" }
 for k, v in pairs(replicalist) do
     AddReplicableComponent(v)
 end
