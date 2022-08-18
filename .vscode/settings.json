@@ -5,7 +5,8 @@
     "files.exclude": {
         "workshop*" : true,
         "**/.git": true,
-        "*.gitignore" : true,
+        "**/.gitignore" : true,
+        "**/.gitmodules" : true,
         "dedicated_server_mods_setup_rail.lua" : true,
         "dedicated_server_mods_setup.lua" : true,
         "modsettings.lua" : true,
