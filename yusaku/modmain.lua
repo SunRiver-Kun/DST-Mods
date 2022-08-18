@@ -57,8 +57,8 @@ PREFAB_SKINS["yusaku"] = { -- 修复人物大图显示
 -- The character select screen lines  --人物选人界面的描述
 STRINGS.CHARACTER_TITLES.yusaku = "藤木游作"
 STRINGS.CHARACTER_NAMES.yusaku = "藤木游作"
-STRINGS.CHARACTER_DESCRIPTIONS.yusaku = "*Perk 1\n*Perk 2\n*Perk 3"
-STRINGS.CHARACTER_QUOTES.yusaku = "名言"
+STRINGS.CHARACTER_DESCRIPTIONS.yusaku = "*使用决斗盘进行变身\n*意志坚强\n*受梦魇侵袭辗转发侧"
+STRINGS.CHARACTER_QUOTES.yusaku = "我会向那些夺走我的过去的人复仇。"
 
 -- Custom speech strings  ----人物语言文件  可以进去自定义
 STRINGS.CHARACTERS.YUSAKU = require "speech_yusaku"
@@ -82,7 +82,7 @@ TUNING.YUSAKU_INHERENTINSULATION = 100  --冬天保温
 TUNING.YUSAKU_IINHERENTSUMMERINSULATION = 100   --夏天保温
 
 -- 生存几率
-STRINGS.CHARACTER_SURVIVABILITY.yusaku = "生存？爷是来斩妖除魔的！"
+STRINGS.CHARACTER_SURVIVABILITY.yusaku = "三点"
 
 -- 选人界面初始物品显示
 TUNING.GAMEMODE_STARTING_ITEMS.DEFAULT.YUSAKU = { "yu_tablet", }
