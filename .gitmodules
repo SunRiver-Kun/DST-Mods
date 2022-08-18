@@ -1,0 +1,3 @@
+[submodule "yusaku"]
+	path = yusaku
+	url = git@github.com:3jioooo/yusaku.git
