@@ -1,5 +1,4 @@
 ﻿# 忽略名称中开头为workshop的文件夹
-_*/
 ~*/
 workshop*/
 **/exported/
