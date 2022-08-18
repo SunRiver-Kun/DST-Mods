@@ -3,7 +3,6 @@
         "*workshop*" : true
     },
     "files.exclude": {
-        "_*" : true,
         "workshop*" : true,
         "**/.git": true,
         "*.gitignore" : true,
