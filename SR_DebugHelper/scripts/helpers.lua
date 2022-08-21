@@ -177,7 +177,149 @@ AddCommand("s_data", function ()
     return SR_DEBUGMENU:GetCurrentData()
 end,nil,"返回当前调试菜单的对象表","Return current debug menu table")
 
+local fxs = nil
+local function PlaySound(inst, sound) inst.SoundEmitter:PlaySound(sound) end
+AddCommand("s_spawnfx", function (prefab, parent)
+    if not fxs then
+        fxs = {}
+        for k, v in pairs(require("fx")) do
+            fxs[v.name] = v
+        end
+    end
+
+    local t = fxs[prefab]
+    if not t then 
+        print("Can't find the fx")
+        return 
+    end
+
+    --from prefabs/fx.lua, but not auto remove
+    local inst = CreateEntity(t.name)
+
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
+    if parent ~= nil then
+        inst.entity:SetParent(parent.entity)
+    else
+        inst.Transform:SetPosition(ConsoleWorldPosition():Get())
+    end
+
+    -- if t.nameoverride == nil and t.description == nil then
+    --     inst:AddTag("FX")
+    -- end
+    --[[Non-networked entity]]
+    inst.entity:SetCanSleep(false)
+    inst.persists = false
+
+    --inst.Transform:SetFromProxy(proxy.GUID)
+    if t.twofaced then
+        inst.Transform:SetTwoFaced()
+    elseif t.eightfaced then
+        inst.Transform:SetEightFaced()
+    elseif t.sixfaced then
+        inst.Transform:SetSixFaced()
+    elseif not t.nofaced then
+        inst.Transform:SetFourFaced()
+    end
+
+    if t.autorotate and parent ~= nil then
+        inst.Transform:SetRotation(parent.Transform:GetRotation())
+    end
+
+    if t.sound ~= nil then
+        inst.entity:AddSoundEmitter()
+        if t.update_while_paused then
+            inst:DoStaticTaskInTime(t.sounddelay or 0, PlaySound, t.sound)
+        else
+            inst:DoTaskInTime(t.sounddelay or 0, PlaySound, t.sound)
+        end
+    end
+
+    if t.sound2 ~= nil then
+        if inst.SoundEmitter == nil then
+            inst.entity:AddSoundEmitter()
+        end
+        if t.update_while_paused then
+            inst:DoStaticTaskInTime(t.sounddelay2 or 0, PlaySound, t.sound2)
+        else
+            inst:DoTaskInTime(t.sounddelay2 or 0, PlaySound, t.sound2)
+        end
+    end
+
+    inst.AnimState:SetBank(t.bank)
+    inst.AnimState:SetBuild(t.build)
+    inst.AnimState:PlayAnimation(FunctionOrValue(t.anim), true) -- THIS IS A CLIENT SIDE FUNCTION
+    if t.update_while_paused then
+        inst.AnimState:AnimateWhilePaused(true)
+    end
+    if t.tint ~= nil then
+        inst.AnimState:SetMultColour(t.tint.x, t.tint.y, t.tint.z, t.tintalpha or 1)
+    elseif t.tintalpha ~= nil then
+        inst.AnimState:SetMultColour(1, 1, 1, t.tintalpha)
+    end
+    --print(inst.AnimState:GetMultColour())
+    if t.transform ~= nil then
+        inst.AnimState:SetScale(t.transform:Get())
+    end
+
+    if t.nameoverride ~= nil then
+        if inst.components.inspectable == nil then
+            inst:AddComponent("inspectable")
+        end
+        inst.components.inspectable.nameoverride = t.nameoverride
+        inst.name = t.nameoverride
+    end
+
+    if t.description ~= nil then
+        if inst.components.inspectable == nil then
+            inst:AddComponent("inspectable")
+        end
+        inst.components.inspectable.descriptionfn = t.description
+    end
+
+    if t.bloom then
+        inst.AnimState:SetBloomEffectHandle("shaders/anim.ksh")
+    end
+
+    -- if t.animqueue then
+    --     inst:ListenForEvent("animqueueover", inst.Remove)
+    -- else
+    --     inst:ListenForEvent("animover", inst.Remove)
+    -- end
+
+    if t.fn ~= nil then
+        if t.fntime ~= nil then
+            if t.update_while_paused then
+                inst:DoStaticTaskInTime(t.fntime, t.fn)
+            else
+                inst:DoTaskInTime(t.fntime, t.fn)
+            end
+        else
+            t.fn(inst)
+        end
+    end
+
+    return inst
+end,"prefab:string","生成调试的预设物","Spawn debug fx")
+
 --s_test 调试用，随便改  c_remote(fnstr) 直接偷渡
+local tfxs = nil
 AddCommand("s_test",function(str)
-    
+    if not tfxs then
+        tfxs = require("fx")
+    end
+    local index = 1
+    local per = nil
+    per = ThePlayer:DoPeriodicTask(1, function ()
+        if index > #tfxs then 
+            per:Cancel()
+            per = nil
+            index = 1
+            return 
+        end
+        local inst = c_spawn(tfxs[index].name)
+        print(inst.prefab)
+        s_say(inst.prefab)
+        index = index + 1
+    end)
 end)
