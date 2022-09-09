@@ -1,4 +1,4 @@
-GLOBAL.setmetatable(env,{__index=function(t,k) return GLOBAL.rawget(t,k) or GLOBAL.rawget(GLOBAL,k) end})
+GLOBAL.setmetatable(env,{__index=function(t,k) return GLOBAL.rawget(GLOBAL,k) end})	
 
 Assets = {
     Asset( "IMAGE", "images/sr_white.tex" ),	
