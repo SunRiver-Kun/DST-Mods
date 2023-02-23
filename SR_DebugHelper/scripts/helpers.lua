@@ -159,7 +159,7 @@ AddCommand("s_show", function(tb)
     if vtype=="table" then
         SR_DEBUGMENU:Push(tb)
     elseif vtype=="function" then
-        SR_DEBUGMENU:Push( getmetatable(tb) )
+        SR_DEBUGMENU:Push( debug.getinfo(tb) )
     elseif vtype=="userdata" then
         SR_DEBUGMENU:Push( getmetatable(tb) or {} ) 
     else 
